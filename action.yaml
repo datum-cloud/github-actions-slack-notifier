@@ -6,14 +6,17 @@ inputs:
       description: Name of tenant app_name to deploy to, e.g. testapp1
       required: true
       type: string
+      default: ${{ github.repository }}
     env_name:
       description: Name of tenant env to deploy to, e.g. dev
       required: true
       type: string
+      default: ${{github.ref}}
     type:
       description: Message type to be sent, supported values 'start', 'end', 'failed', 'custom'
       required: true
       type: string
+      default: end
     channel_id:
       description: Slack channel id to send messages
       required: true
@@ -30,7 +33,7 @@ inputs:
       description: Custom message when inputs.type is set to 'custom'
       required: false
       type: string
-      default: ""
+      default: ':ok_hand: Action on branch ${{github.ref}} is triggered'
     mentions:
       description: Slack users or groups to mention in the message
       required: false
