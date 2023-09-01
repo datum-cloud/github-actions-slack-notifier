@@ -60,7 +60,7 @@ runs:
             "start": {
               "attachments": [
                 {
-                  "color": "#dbab09",
+                  "color": "${{ inputs.color || "#dbab09" }}",
                   "fallback": "${{ inputs.app_name }} ${{ inputs.env_name }}: start",
                   "blocks": [
                     {
@@ -88,7 +88,7 @@ runs:
             "end": {
               "attachments": [
                 {
-                  "color": "#28a745",
+                  "color": "${{ inputs.color || "#28a745" }},
                   "fallback": "${{ inputs.app_name }} ${{ inputs.env_name }}: end",
                   "blocks": [
                     {
@@ -116,7 +116,7 @@ runs:
             "failed": {
               "attachments": [
                 {
-                  "color": "#a72841",
+                  "color": "${{ inputs.color || "#a72841" }},
                   "fallback": "${{ inputs.app_name }} ${{ inputs.env_name }}: failed",
                   "blocks": [
                     {
@@ -139,12 +139,44 @@ runs:
                     }
                   ]
                 }
+              ]         
+            },
+            "default": {
+              "attachments": [
+                {
+                  "color": "${{ job.status == 'success' && 'good' || job.status == 'failure' && 'danger' || 'warning' }}",
+                  "fields": [
+                    {
+                      "title": "Job",
+                      "value": "<https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }} | ${{ github.job }}>",
+                      "short": true
+                    },
+                    {
+                      "title": "Repo",
+                      "value": "<https://github.com/${{ github.repository }} | ${{ github.repository }}>",
+                      "short": true
+                    },
+                    {
+                      "title": "${{ github.event_name == 'pull_request' && 'Pull Request' || 'Branch' }}",
+                      "value": "${{ github.event_name == 'pull_request' && format('<{0} | {1}>', github.event.pull_request.html_url, github.event.pull_request.title) || format('<https://github.com/{0}/commit/{1} | {2}>', github.repository, github.sha, env.BRANCH)}}",
+                      "short": true
+                    },
+                    {
+                      "title": "Event",
+                      "value": "${{ github.event_name }}",
+                      "short": true
+                    }
+                  ],
+                  "footer_icon": "https://github.githubassets.com/favicon.ico",
+                  "footer": "<https://github.com/${{ github.repository }} | ${{ github.repository }}>",
+                  "ts": ${{ steps.timestamp-step.outputs.timestamp }}
+                }
               ]
             },
             "custom": {
               "attachments": [
                 {
-                  "color": "#28a745",
+                  "color": "${{ inputs.color || "#28a745" }},
                   "fallback": "${{ inputs.app_name }} ${{ inputs.env_name }}: custom",
                   "blocks": [
                     {
