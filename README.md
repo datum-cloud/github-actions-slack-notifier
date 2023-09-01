@@ -33,3 +33,11 @@ The default message types:
 - end
 - failed
 - custom
+
+# Inputs
+
+| Name          | Description                                             |
+| ------------- |---------------------------------------------------------|
+| `CHANNEL_ID` | The slack channel id                                     |
+| `MESSAGE`       | The message display in first block of notification    |
+| `SLACK_BOT_TOKEN`       | OAuth token of your slack app                 |
