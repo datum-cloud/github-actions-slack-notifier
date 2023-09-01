@@ -38,7 +38,7 @@ inputs:
       description: The color of the slack message
       required: false
       type: string
-      default: 'default'
+      default: '#dbab09'
     mentions:
       description: Slack users or groups to mention in the message
       required: false
@@ -80,7 +80,7 @@ runs:
             "start": {
               "attachments": [
                 {
-                  "color": "${{ inputs.color == 'default' && 'default' || '#dbab09' }}",
+                  "color": "#dbab09",
                   "fallback": "${{ inputs.app_name }} ${{ inputs.env_name }}: start",
                   "blocks": [
                     {
@@ -108,7 +108,7 @@ runs:
             "end": {
               "attachments": [
                 {
-                  "color": "${{ inputs.color == 'default' && 'default' || '#28a745' }},
+                  "color": "#dbab09",
                   "fallback": "${{ inputs.app_name }} ${{ inputs.env_name }}: end",
                   "blocks": [
                     {
@@ -136,7 +136,7 @@ runs:
             "failed": {
               "attachments": [
                 {
-                  "color": "${{ inputs.color == 'default' && 'default' || '#a72841' }},
+                  "color": "#a72841",
                   "fallback": "${{ inputs.app_name }} ${{ inputs.env_name }}: failed",
                   "blocks": [
                     {
@@ -164,7 +164,7 @@ runs:
             "default": {
               "attachments": [
                 {
-                  "color": "${{ job.status == 'success' && 'good' || job.status == 'failure' && 'danger' || 'warning' }}",
+                  "color": "#28a745",
                   "fields": [
                     {
                       "title": "Job",
@@ -196,7 +196,7 @@ runs:
             "custom": {
               "attachments": [
                 {
-                  "color": "${{ inputs.color == 'default' && 'default' || '#28a745' }},
+                  "color": "#28a745",
                   "fallback": "${{ inputs.app_name }} ${{ inputs.env_name }}: custom",
                   "blocks": [
                     {
