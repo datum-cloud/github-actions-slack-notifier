@@ -167,13 +167,13 @@ runs:
                   "color": "#28a745",
                   "fields": [
                     {
-                      "title": "Job",
+                      "title": "Job ${{ job.status == 'success' && '✅' || '❌' }} ${{ job.status }}",
                       "value": "<https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }} | ${{ github.job }}>",
                       "short": true
                     },
                     {
-                      "title": "Repo",
-                      "value": "<https://github.com/${{ github.repository }} | ${{ github.repository }}>",
+                      "title": "Actor",
+                      "value": "<https://github.com/${{ github.actor }} | ${{ github.actor }}>",
                       "short": true
                     },
                     {
@@ -183,7 +183,7 @@ runs:
                     },
                     {
                       "title": "Event",
-                      "value": "${{ github.event_name }}",
+                      "value": "${{ github.event_name }} and conclusion: ${{ github.event.workflow_run.conclusion }} ",
                       "short": true
                     }
                   ],
