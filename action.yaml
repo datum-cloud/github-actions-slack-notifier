@@ -34,11 +34,16 @@ inputs:
       required: false
       type: string
       default: ':ok_hand: Action on branch ${{github.ref}} is triggered'
+    color:
+      description: The color of the slack message
+      required: false
+      type: string
+      default: 'default'
     mentions:
       description: Slack users or groups to mention in the message
       required: false
       type: string
-      default: ""
+      default: ''
     update_ts:
       description: Message ts for updating sent messages
       required: false
@@ -60,7 +65,7 @@ runs:
             "start": {
               "attachments": [
                 {
-                  "color": "${{ inputs.color || "#dbab09" }}",
+                  "color": "${{ inputs.color == 'default' && 'default' || '#dbab09' }}",
                   "fallback": "${{ inputs.app_name }} ${{ inputs.env_name }}: start",
                   "blocks": [
                     {
@@ -88,7 +93,7 @@ runs:
             "end": {
               "attachments": [
                 {
-                  "color": "${{ inputs.color || "#28a745" }},
+                  "color": "${{ inputs.color == 'default' && 'default' || '#28a745' }},
                   "fallback": "${{ inputs.app_name }} ${{ inputs.env_name }}: end",
                   "blocks": [
                     {
@@ -116,7 +121,7 @@ runs:
             "failed": {
               "attachments": [
                 {
-                  "color": "${{ inputs.color || "#a72841" }},
+                  "color": "${{ inputs.color == 'default' && 'default' || '#a72841' }},
                   "fallback": "${{ inputs.app_name }} ${{ inputs.env_name }}: failed",
                   "blocks": [
                     {
@@ -176,7 +181,7 @@ runs:
             "custom": {
               "attachments": [
                 {
-                  "color": "${{ inputs.color || "#28a745" }},
+                  "color": "${{ inputs.color == 'default' && 'default' || '#28a745' }},
                   "fallback": "${{ inputs.app_name }} ${{ inputs.env_name }}: custom",
                   "blocks": [
                     {
