@@ -48,9 +48,6 @@ outputs:
     description: Slack ts for updating messages
     value: ${{ steps.slack.outputs.ts }}
 
-env:
-    CURRENT_BRANCH: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_branch || github.ref_name }}
-
 runs:
   using: composite
   steps:
