@@ -56,6 +56,21 @@ outputs:
 runs:
   using: composite
   steps:
+    - name: Set BRANCH variable
+      id: set-branch
+      shell: bash
+      run: |
+        if [ "${{ github.event_name }}" == "pull_request" ]; then
+          BRANCH="${{ github.event.pull_request.head.ref }}"
+        else
+          BRANCH="${{ github.ref }}"
+          BRANCH="${BRANCH#refs/heads/}"
+        fi
+        echo "BRANCH=${BRANCH}" >> $GITHUB_ENV
+    - name: Get Unix Timestamp
+      id: timestamp-step
+      shell: bash
+      run: echo "::set-output name=timestamp::$(date +%s)"
     - id: slack
       uses: slackapi/slack-github-action@v1.24.0
       env:
