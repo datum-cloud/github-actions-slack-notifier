@@ -1,5 +1,5 @@
-name: Slack notifications
-description: Slack notifications for deployments
+name: github-actions-slack-notifier
+description: Slack notifications for github actions workflows
 
 inputs:
     app_name:
