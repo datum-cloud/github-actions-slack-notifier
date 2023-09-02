@@ -25,6 +25,10 @@ inputs:
       description: Slack bot token oauth secret
       required: true
       type: string
+    slack_webhook_url:
+      description: slack incoming webhook url
+      required: false
+      type: string
     ref:
       description: Deployment ref
       required: false
@@ -74,6 +78,8 @@ runs:
     - id: slack
       uses: slackapi/slack-github-action@v1.24.0
       env:
+        SLACK_WEBHOOK_URL: ${{ inputs.SLACK_WEBHOOK_URL }}
+        SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
         SLACK_BOT_TOKEN: ${{ inputs.SLACK_BOT_TOKEN }}
         MESSAGE: >-
           {
