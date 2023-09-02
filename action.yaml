@@ -74,7 +74,7 @@ runs:
     - name: Get Unix Timestamp
       id: timestamp-step
       shell: bash
-      run: echo "::set-output name=timestamp::$(date +%s)"
+      run: echo "timestamp=$(date +%s)" >> $GITHUB_ENV
     - id: slack
       uses: slackapi/slack-github-action@v1.24.0
       env:
@@ -170,10 +170,10 @@ runs:
             "default": {
               "attachments": [
                 {
-                  "color": "#28a745",
+                  "color": " ${{ job.status == 'success' && '#28a745' || '#a72841' }}",
                   "fields": [
                     {
-                      "title": "Job ${{ job.status == 'success' && '✅' || '❌' }} ${{ job.status }}",
+                      "title": "Job ${{ job.name }} ${{ job.status == 'success' && '✅' || '❌' }} ${{ job.status }}",
                       "value": "<https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }} | ${{ github.job }}>",
                       "short": true
                     },
@@ -195,7 +195,7 @@ runs:
                   ],
                   "footer_icon": "https://github.githubassets.com/favicon.ico",
                   "footer": "<https://github.com/${{ github.repository }} | ${{ github.repository }}>",
-                  "ts": ${{ steps.timestamp-step.outputs.timestamp }}
+                  "ts": ${{ env.timestamp }}
                 }
               ]
             },
